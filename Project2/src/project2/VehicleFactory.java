@@ -23,46 +23,55 @@ public class VehicleFactory {
 
 	//constants to hold our pricing properties
 	private final double VEHICLE_PRICE = 500.19;
-	private final double FUELCELL_PRICE = 2.15;
-	
-	//you have to create a constant and store the tax rate in it
-	
-	
-	public VehicleFactory(String aName, String aPhone, int aNbrVehicles, int aNbrTanks){
-		//add necessary code in here
-	
-	}
-	
-	//Add methods to perform your calculations here
-	//for example you have to calculate the manufacturing cost and store it in manufactureCost
-	public void calcManufacturingCost(){
-		
-	}
-	
-	//for example you have to calculate the fuel tanks cost and store it in fuelTankCost
-	public void calcFuelTankCost(){
-		
-	}
-	
-	//add method to calculate the subtotal and store it in subtotal
-	public void calcSubtotal(){
-		
-	}
-	
-	//add method to calculate the tax and store it in tax
-	public void calcTax(){
-		
-	}
-	
-	//add method to calculate the total and store it in total
-	public void calcTotal(){
-		
-	}
-	
-	//Add a method to return a summary for this object here
-	public String getSummary(){
-		//you have to build your summary and store it in the summary variable
-		
-		return null;
-	}
+    private final double FUELCELL_PRICE = 2.15;
+	//added the Tax Rate constant
+    private final double TAX_RATE = 0.0825;
+
+    public VehicleFactory(String aName, String aPhone, int aNbrVehicles, int aNbrTanks){
+        name = aName;
+        phone = aPhone;
+        nbrVehicles = aNbrVehicles;
+        nbrTanks = aNbrTanks;
+
+        calcManufacturingCost();
+        calcFuelTankCost();
+        calcSubtotal();
+        calcTax();
+        calcTotal();
+    }
+
+    public void calcManufacturingCost(){
+        manufactureCost = nbrVehicles * VEHICLE_PRICE;
+    }
+
+    public void calcFuelTankCost(){
+        fuelTanksCost = nbrTanks * FUELCELL_PRICE;
+    }
+
+    public void calcSubtotal(){
+        subtotal = manufactureCost + fuelTanksCost;
+    }
+
+    public void calcTax(){
+        tax = subtotal * TAX_RATE;
+    }
+
+    public void calcTotal(){
+        total = subtotal + tax;
+    }
+
+    public String getSummary(){
+        String summary = "Vehicle Factory Summary\n";
+        summary += "-----------------------\n";
+        summary += "Name: " + name + "\n";
+        summary += "Phone: " + phone + "\n";
+        summary += "Number of Vehicles: " + nbrVehicles + "\n";
+        summary += "Number of Fuel Tanks: " + nbrTanks + "\n";
+        summary += "Manufacturing Cost: $" + String.format("%.2f", manufactureCost) + "\n";
+        summary += "Fuel Tank Cost: $" + String.format("%.2f", fuelTanksCost) + "\n";
+        summary += "Subtotal: $" + String.format("%.2f", subtotal) + "\n";
+        summary += "Tax: $" + String.format("%.2f", tax) + "\n";
+        summary += "Total: $" + String.format("%.2f", total) + "\n";
+        return summary;
+    }
 }
